@@ -5,6 +5,39 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './index.css'
 
+const skills = [
+  {
+    skill: "HTML+CSS",
+    level: "advanced",
+    color: "#2662EA"
+  },
+  {
+    skill: "JavaScript",
+    level: "advanced",
+    color: "#EFD81D"
+  },
+  {
+    skill: "Web Design",
+    level: "advanced",
+    color: "#C3DCAF"
+  },
+  {
+    skill: "Git and GitHub",
+    level: "intermediate",
+    color: "#E84F33"
+  },
+  {
+    skill: "React",
+    level: "advanced",
+    color: "#60DAFB"
+  },
+  {
+    skill: "Svelte",
+    level: "beginner",
+    color: "#FF3B00"
+  }
+];
+
 function App() {
   const [count, setCount] = useState(0)
 
@@ -53,20 +86,29 @@ function Details() {
 function SkillsList() {
   return (
     <div className="skill-list">
-        <Skill skillname="React" color="blue"/>
-        <Skill skillname="Django" color="orange"/>
-        <Skill skillname="Python" color="yellow"/>
-        <Skill skillname="Node.js" color="red"/>
-        <Skill skillname="Golang" color="grey"/>
-        <Skill skillname="Javascript" color="purple"/>
+      {skills.map((skill) => (
+        <Skill skillname={skill.skill} level={skill.level} color={skill.color} />
+      ))}
     </div>
   )
 }
 
-function Skill(props) {
+function Skill({skillname, level, color}) {
+  const emoji = {
+    beginner: "👶",
+    intermediate: "👍",
+    advanced: "💪"
+  };
+
   return (
-    <div className="skill" style={{backgroundColor:props.color}}>
-      <span>{props.skillname}</span>
+    <div className="skill" style={{backgroundColor:color}}>
+      <span>{skillname}</span>
+      <span>{emoji[level]}</span>
+      {/* <span>
+        {level === "beginner" && "👶"}
+        {level === "intermediate" && "👍"}
+        {level === "advanced" && "💪"}
+      </span> */}
     </div>
   );
 }
