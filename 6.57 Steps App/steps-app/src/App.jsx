@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "/public/index.css";
+import "./index.css";
 
 const messages = [
   'Learn React ⚛️',
@@ -30,9 +30,14 @@ export default function App() {
     if (step < 3) setStep((s) => s + 1);
   }
 
+  function handleReset() {
+    setCountValue(0);
+    setJumpValue(1);
+  }
+
 
   return (
-    <>
+    <div>
     <div>
       <button className="close" onClick={()=>setIsOpen((is) => !is)}>&times;</button>
        {isOpen && (
@@ -56,14 +61,16 @@ export default function App() {
       <h1>STEPS COUNTER</h1>
       
       <div>
-        <button onClick={() => setJumpValue((s) => s - 1)}>-</button>
+        <input type="range" min="0" max="10" value={jumpvalue} onChange={(e) => setJumpValue(Number(e.target.value))} />
+        {/* <button onClick={() => setJumpValue((s) => s - 1)}>-</button> */}
         <span>Step: {jumpvalue}</span>
-        <button onClick={() => setJumpValue((s) => s + 1)}>+</button>
+        {/* <button onClick={() => setJumpValue((s) => s + 1)}>+</button> */}
       </div>
       
       <div>
         <button onClick={() => setCountValue((c) => c - jumpvalue)}>-</button>
-        <span>Count: {countvalue}</span>
+        {/* <span>Count: {countvalue}</span> */}
+        <input type="text" value={countvalue} onChange={(e) => setCountValue(Number(e.target.value))} />
         <button onClick={() => setCountValue((c) => c + jumpvalue)}>+</button>
       </div>
 
@@ -78,7 +85,14 @@ export default function App() {
         </span>
         <span>{date.toDateString()}</span>
       </div>
+
+      {(countvalue !== 0 || jumpvalue !== 1) ? (
+        <div>
+          <button onClick={handleReset}>Reset</button>
+        </div> 
+        ) : null
+      }
     </div>
-    </>
+    </div>
   );
 }
